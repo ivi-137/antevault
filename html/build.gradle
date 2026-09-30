@@ -1,0 +1,64 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath "org.docstr.gwt:org.docstr.gwt.gradle.plugin:$gwtPluginVersion"
+  }
+}
+apply plugin: "org.docstr.gwt"
+apply plugin: "war"
+
+// The browser build.   gradlew html:dist   ->   html/build/dist   (a static site; any web server will do)
+var outputPath = "build/dist/"
+
+gwt {
+  gwtVersion = "$gwtFrameworkVersion" // must match the GWT backend version, see gradle.properties
+  maxHeapSize = '1G'                  // the GWT compiler is hungry
+  minHeapSize = '1G'
+
+  modules = ["com.mygdx.game.GdxDefinition"]
+  war = file(outputPath)
+
+  compiler.optimize = 9
+  compiler.strict = true
+  sourceLevel = '1.11'
+}
+
+gwt.extraSourceDirs.from(
+  file('src/main/java'),
+  files(project(':core').sourceSets.main.allJava.srcDirs),
+  files(sourceSets.main.output.resourcesDir)
+)
+
+dependencies {
+  implementation project(':core')
+  implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+  implementation "com.google.jsinterop:jsinterop-annotations:2.1.0:sources"
+
+  constraints {
+    implementation "jakarta.servlet:jakarta.servlet-api:6.1.0"
+  }
+}
+
+// GWT needs a clean output folder: leftovers from an earlier build confuse it.
+clean.delete += [file("war")]
+tasks.named("compileJava").get().dependsOn("clean")
+
+tasks.register('dist') {
+  dependsOn("build")
+  doLast {
+    file(outputPath).mkdirs()
+    copy {
+      from("build/gwt/out") { exclude '**/*.symbolMap' } // symbol maps are large and unused in a dist
+      into outputPath
+    }
+    copy { from("webapp"); into outputPath }
+    copy { from "war"; into outputPath }
+  }
+}
+
+tasks.compileJava.dependsOn("processResources")

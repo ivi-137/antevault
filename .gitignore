@@ -1,0 +1,30 @@
+# build output
+.gradle/
+build/
+*.class
+hs_err_pid*
+
+# generated, per-platform
+/android/libs/
+/html/war/
+.gwt/
+gwt-unitCache/
+
+# local to one machine
+local.properties
+antevault-crash.log
+.claude/
+.idea/
+*.iml
+.vscode/
+
+# leftovers from the project template: an iOS module that was never built, and its logo files
+/ios/
+/lwjgl3/icons/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# written by older builds; not part of the project
+/assets/assets.txt

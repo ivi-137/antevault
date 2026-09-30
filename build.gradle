@@ -1,0 +1,17 @@
+// Shared setup for every module. The Android module configures itself in android/build.gradle.
+subprojects {
+  version = "$projectVersion"
+  ext.appName = 'antevault'
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  if (name != 'android') {
+    apply plugin: 'java-library'
+    java.sourceCompatibility = 11
+    java.targetCompatibility = 11
+    tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+  }
+}

@@ -1,0 +1,18 @@
+plugins {
+  id 'application'
+}
+
+// Build-time helpers only; nothing here ships in the game.
+//   gradlew tools:run   re-bakes assets/font from tools/fonts
+application.mainClass = 'com.mygdx.game.tools.BakeAssets'
+
+dependencies {
+  implementation project(':core')
+  implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+
+run {
+  workingDir = rootProject.projectDir
+}

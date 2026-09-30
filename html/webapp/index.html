@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ANTEVAULT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="ANTEVAULT is a free poker roguelite that runs in your browser. Play hands to break seals, collect items and charms, and open the vault.">
+  <meta name="theme-color" content="#0a0610">
+  <link rel="canonical" href="https://gpojani.me/antevault/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ANTEVAULT">
+  <meta property="og:description" content="A poker roguelite. Break the seals, open the vault. Free, in your browser.">
+  <meta property="og:url" content="https://gpojani.me/antevault/">
+  <meta property="og:image" content="https://gpojani.me/antevault/social.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="embed-html"></div>
+
+  <div id="loader" role="status">
+    <h1>ANTEVAULT</h1>
+    <p id="loader-msg">Shuffling the deck&hellip;</p>
+    <div class="track"><div id="loader-bar"></div></div>
+  </div>
+
+  <div id="rotate"><p>Turn your device sideways to play</p></div>
+
+  <noscript><p class="nojs">ANTEVAULT needs JavaScript and WebGL to run.</p></noscript>
+
+  <script src="html/html.nocache.js"></script>
+  <script>
+    // Keep the page from reacting to the clicks and right-clicks the game uses.
+    var stage = document.getElementById('embed-html');
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    stage.addEventListener('mousedown', function (e) { e.preventDefault(); window.focus(); });
+    stage.addEventListener('mouseup', function (e) { e.preventDefault(); });
+  </script>
+</body>
+</html>
