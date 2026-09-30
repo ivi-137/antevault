@@ -254,7 +254,7 @@ public class MapScreen implements GameScreen {
             g.set(new TitleScreen());
         }
         if (g.ui.button(b, a, "mquit", I18n.t("menu.quitgame"), x + 40, y + 4, w - 80, 38, Pal.PANEL, true, dt).clicked) {
-            Gdx.app.exit();
+            g.onQuit.run();
         }
     }
 

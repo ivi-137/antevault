@@ -83,7 +83,7 @@ public class TitleScreen implements GameScreen {
                 g.set(new SettingsScreen(new TitleScreen()));
             }
             if (ui.button(b, a, "quit", I18n.t("menu.quit"), cx - 140, 54, 280, 44, Pal.PANEL, true, dt).clicked) {
-                Gdx.app.exit();
+                g.onQuit.run();
             }
             a.textBoxC(b, a.small, I18n.t("title.footer"),
                 cx - 360, 40, 720, 20, Pal.DIMMER, 1f, 1f, 10);

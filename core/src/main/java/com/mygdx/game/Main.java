@@ -54,6 +54,11 @@ public class Main extends ApplicationAdapter {
         @Override public void report(String where, Throwable t) { Gdx.app.error("antevault", where, t); }
     };
 
+    /** What the quit buttons do. Desktop and Android close the app; the browser build goes back to the blog. */
+    public Runnable onQuit = new Runnable() {
+        @Override public void run() { Gdx.app.exit(); }
+    };
+
     /** Shown when a screen threw and the game recovered instead of dying. */
     private String errorBanner;
     private float errorT;

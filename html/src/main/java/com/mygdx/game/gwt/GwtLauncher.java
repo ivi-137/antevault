@@ -8,10 +8,14 @@ import com.badlogic.gdx.backends.gwt.preloader.Preloader.PreloaderState;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.Window;
 import com.mygdx.game.Main;
 
 /** Launches the browser build. The page shell (index.html) owns the loading screen. */
 public class GwtLauncher extends GwtApplication {
+
+    /** A browser tab can't be closed from inside, so "quit" goes back to the post about the game. */
+    private static final String HOME = "https://gpojani.me/posts/antevault/";
 
     @Override
     public GwtApplicationConfiguration getConfig() {
@@ -24,7 +28,11 @@ public class GwtLauncher extends GwtApplication {
 
     @Override
     public ApplicationListener createApplicationListener() {
-        return new Main();
+        Main game = new Main();
+        game.onQuit = new Runnable() {
+            @Override public void run() { Window.Location.assign(HOME); }
+        };
+        return game;
     }
 
     /** Drives the loading bar in index.html instead of the default libGDX-branded one. */
